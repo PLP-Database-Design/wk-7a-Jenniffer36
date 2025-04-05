@@ -61,3 +61,33 @@ Task:
 
 ---
 Good luck 🚀
+
+
+
+question one;
+SELECT 
+    OrderID, 
+    CustomerName, 
+    TRIM(product) AS Product
+FROM 
+    ProductDetail,
+    JSON_TABLE(
+        JSON_ARRAYAGG(JSON_QUOTE(REPLACE(Products, ', ', '","'))),
+        "$[*]" COLUMNS(product VARCHAR(100) PATH "$")
+    ) AS split_products;
+
+
+question two;
+SELECT DISTINCT 
+    OrderID, 
+    CustomerName
+FROM 
+    OrderDetails;
+
+
+SELECT 
+    OrderID, 
+    Product, 
+    Quantity
+FROM 
+    OrderDetails;
